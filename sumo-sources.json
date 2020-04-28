@@ -1,0 +1,9 @@
+{
+  "api.version":"v1",
+  "source":{
+     "sourceType":"LocalFile",
+     "name":"trip",
+     "pathExpression":"/var/log/trip/spring.log",
+     "blacklist":[]
+  }
+}

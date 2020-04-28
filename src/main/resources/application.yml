@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: trip-service
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  kafka:
+    bootstrap-servers: ${BOOTSTRAP_SERVERS}
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: payment-info:com.softserve.kickscootertrip.dto.TripDto
+    consumer:
+      auto-offset-reset: earliest
+      group-id: trip
+      properties:
+        spring:
+          json:
+            type:
+              mapping: status:com.softserve.kickscootertrip.dto.ScooterStatusDto
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_SERVER}/eureka/
+
+service-token: ${SERVICE_TOKEN}
+
+logging:
+  file:
+    path: /var/log/trip

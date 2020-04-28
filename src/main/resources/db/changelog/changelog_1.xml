@@ -1,0 +1,38 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create_trip_table" author="Oleg">
+
+        <createTable tableName="trip">
+
+            <column name="trip_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid"/>
+            <column name="scooter_id" type="uuid"/>
+            <column name="start" type="timestamp"/>
+            <column name="finish" type="timestamp"/>
+            <column name="trip_time" type="NUMERIC"/>
+            <column name="distance" type="NUMERIC"/>
+            <column name="status" type="varchar(32)"/>
+        </createTable>
+    </changeSet>
+
+
+
+    <changeSet id="create_geolocation_table" author="Oleg">
+        <createTable tableName="geolocation">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trip_id" type="UUID"/>
+            <column name="longitude" type="double precision"/>
+            <column name="latitude" type="double precision"/>
+            <column name="creation" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>
