@@ -8,7 +8,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 version = "2019.2"
 
 project {
-    vcsRoot(Trip)
     buildType(DiscoveryBuild)
     buildType(Deploy)
 }
@@ -19,7 +18,7 @@ object DiscoveryBuild : BuildType({
     publishArtifacts = PublishMode.SUCCESSFUL
 
     vcs {
-        root(Trip)
+        root(DslContext.settingsRoot)
     }
 
     steps {
@@ -69,7 +68,7 @@ object Deploy : BuildType({
     maxRunningBuilds = 1
 
     vcs {
-        root(Trip)
+        root(DslContext.settingsRoot)
     }
 
     steps {
@@ -91,9 +90,4 @@ object Deploy : BuildType({
         snapshot(DiscoveryBuild) {
         }
     }
-})
-
-object Trip : GitVcsRoot ({
-    name = "Trip"
-    url = "https://github.com/DevOps-DP-185/Trip.git"
 })
