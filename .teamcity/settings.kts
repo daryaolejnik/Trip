@@ -8,11 +8,11 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 version = "2019.2"
 
 project {
-    buildType(DiscoveryBuild)
+    buildType(TripBuild)
     buildType(Deploy)
 }
 
-object DiscoveryBuild : BuildType({
+object TripBuild : BuildType({
     name = "Build"
 
     publishArtifacts = PublishMode.SUCCESSFUL
@@ -33,14 +33,14 @@ object DiscoveryBuild : BuildType({
                 source = file {
                     path = "Dockerfile"
                 }
-                namesAndTags = "artemkulish/demo4:discovery"
+                namesAndTags = "artemkulish/demo4:trip"
                 commandArgs = "--pull"
             }
             param("dockerImage.platform", "linux")
         }
         dockerCommand {
             commandType = push {
-                namesAndTags = "artemkulish/demo4:discovery"
+                namesAndTags = "artemkulish/demo4:trip"
             }
             param("dockerfile.path", "Dockerfile")
         }
@@ -87,7 +87,7 @@ object Deploy : BuildType({
     }
 
     dependencies {
-        snapshot(DiscoveryBuild) {
+        snapshot(TripBuild) {
         }
     }
 })
